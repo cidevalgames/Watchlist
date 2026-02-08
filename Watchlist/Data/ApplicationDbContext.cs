@@ -9,5 +9,14 @@ namespace Watchlist.Data
             : base(options)
         {
         }
+
+        public DbSet<Movie> Movies { get; set; }
+        public DbSet<UserMovie> UserMovies { get; set; }
+
+        protected override void OnModelCreating(ModelBuilder builder)
+        {
+            base.OnModelCreating(builder);
+            builder.Entity<UserMovie>().HasKey(t => new { t.UserID, t.MovieID });
+        }
     }
 }
